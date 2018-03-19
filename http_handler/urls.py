@@ -13,7 +13,6 @@ website_context = {'website' : WEBSITE}
 
 # shared URL patterns 
 urlpatterns = patterns('',
-
     url(r'^$', 'browser.views.index'),
     url(r'^lamson_status', 'browser.views.lamson_status'),
     url(r'^settings', 'browser.views.settings'),
