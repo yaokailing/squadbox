@@ -341,7 +341,7 @@ def activate_group(group_name, user):
         # email the moderators
         else:
             mail = MailResponse(From = NO_REPLY, 
-                                        To = membergroup.email, 
+                                        To = user.email, 
                                         Subject  = "Your squad has been activated")
             message = "Your squad owner has chosen to activate your group."
             mail.Html
@@ -367,7 +367,7 @@ def deactivate_group(group_name, user):
             res['status'] = True
         else:
             mail = MailResponse(From = NO_REPLY, 
-                            To = membergroup.email, 
+                            To = user.email, 
                             Subject  = "Your squad has been deactivated")
             message = "Your squad owner has chosen to deactivate your group."
             mail.Html
