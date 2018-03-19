@@ -338,7 +338,14 @@ def activate_group(group_name, user):
             group.active = True
             group.save()
             res['status'] = True
+        # email the moderators
         else:
+            mail = MailResponse(From = "catyao@mit.edu", 
+                                        To = "yaokailing@gmail.com", 
+                                        Subject  = "Your squad has been activated")
+            message = "Your squad owner has chosen to activate your group."
+            mail.Html
+            relay_mailer.deliver(mail, To = [email])
             res['code'] = msg_code['PRIVILEGE_ERROR']
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
@@ -359,6 +366,12 @@ def deactivate_group(group_name, user):
             group.save()
             res['status'] = True
         else:
+            mail = MailResponse(From = "catyao@mit.edu", 
+                            To = "yaokailing@gmail.com", 
+                            Subject  = "Your squad has been deactivated")
+            message = "Your squad owner has chosen to deactivate your group."
+            mail.Html
+            relay_mailer.deliver(mail, To = [email])
             res['code'] = msg_code['PRIVILEGE_ERROR']
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
