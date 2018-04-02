@@ -338,9 +338,8 @@ def activate_group(group_name, user):
             group.active = True
             group.save()
             res['status'] = True
-        # email the moderators
-        else:
-            res['code'] = msg_code['PRIVILEGE_ERROR']
+        # else:
+        #     res['code'] = msg_code['PRIVILEGE_ERROR']
 
         logging.debug("Email sent to " + user.email)
         mail = MailResponse(From = NO_REPLY, 
@@ -367,8 +366,8 @@ def deactivate_group(group_name, user):
             group.active = False
             group.save()
             res['status'] = True
-        else:
-            res['code'] = msg_code['PRIVILEGE_ERROR']
+        # else:
+        #     res['code'] = msg_code['PRIVILEGE_ERROR']
         
         logging.debug("Email sent to : " + user.email)
         mail = MailResponse(From = NO_REPLY, 
