@@ -340,14 +340,15 @@ def activate_group(group_name, user):
             res['status'] = True
         # email the moderators
         else:
-            logging.debug("Email sent to " + user.email)
-            mail = MailResponse(From = NO_REPLY, 
-                                        To = user.email, 
-                                        Subject  = "Your squad has been activated")
-            message = "Your squad owner has chosen to activate your group."
-            mail.Html
-            relay_mailer.deliver(mail, To = [email])
             res['code'] = msg_code['PRIVILEGE_ERROR']
+
+        logging.debug("Email sent to " + user.email)
+        mail = MailResponse(From = NO_REPLY, 
+                                    To = user.email, 
+                                    Subject  = "Your squad has been activated")
+        message = "Your squad owner has chosen to activate your group."
+        mail.Html
+        relay_mailer.deliver(mail, To = [email])
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
@@ -367,14 +368,15 @@ def deactivate_group(group_name, user):
             group.save()
             res['status'] = True
         else:
-            logging.debug("Email sent to : " + user.email)
+            res['code'] = msg_code['PRIVILEGE_ERROR']
+        
+        logging.debug("Email sent to : " + user.email)
             mail = MailResponse(From = NO_REPLY, 
                             To = user.email, 
                             Subject  = "Your squad has been deactivated")
             message = "Your squad owner has chosen to deactivate your group."
             mail.Html
             relay_mailer.deliver(mail, To = [email])
-            res['code'] = msg_code['PRIVILEGE_ERROR']
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
