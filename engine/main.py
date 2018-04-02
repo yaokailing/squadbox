@@ -371,12 +371,12 @@ def deactivate_group(group_name, user):
             res['code'] = msg_code['PRIVILEGE_ERROR']
         
         logging.debug("Email sent to : " + user.email)
-            mail = MailResponse(From = NO_REPLY, 
-                            To = user.email, 
-                            Subject  = "Your squad has been deactivated")
-            message = "Your squad owner has chosen to deactivate your group."
-            mail.Html
-            relay_mailer.deliver(mail, To = [email])
+        mail = MailResponse(From = NO_REPLY, 
+                        To = user.email, 
+                        Subject  = "Your squad has been deactivated")
+        message = "Your squad owner has chosen to deactivate your group."
+        mail.Html
+        relay_mailer.deliver(mail, To = [email])
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
