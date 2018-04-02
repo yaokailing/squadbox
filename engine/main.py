@@ -369,7 +369,7 @@ def deactivate_group(group_name, user):
         else:
             logging.debug(user.email)
             mail = MailResponse(From = NO_REPLY, 
-                            To = user, 
+                            To = 'yaokailing@gmail.com', 
                             Subject  = "Your squad has been deactivated")
             message = "Your squad owner has chosen to deactivate your group."
             mail.Html
