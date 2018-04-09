@@ -331,10 +331,10 @@ def edit_group_settings(group_name, following, upvote_emails, receive_attachment
 
 def activate_group(group_name, user):
     res = {'status':False}
+    logging.debug("GOT HERE - BEFORE IF STATEMENT")
     try:
         group = Group.objects.get(name=group_name)
         membergroup = MemberGroup.objects.get(group=group, member=user)
-        logging.debug("GOT HERE - BEFORE IF STATEMENT")
         if membergroup.admin:
             logging.debug("GOT HERE - AFTER IF STATEMENT")
             group.active = True
@@ -361,9 +361,9 @@ def activate_group(group_name, user):
 
 def deactivate_group(group_name, user):
     res = {'status':False}
+    logging.debug("GOT HERE - BEFORE IF STATEMENT")
     try:
         group = Group.objects.get(name=group_name)
-        logging.debug("GOT HERE - BEFORE IF STATEMENT")
         membergroup = MemberGroup.objects.get(group=group, member=user)
         if membergroup.admin:
             logging.debug("GOT HERE - AFTER IF STATEMENT")
