@@ -331,7 +331,7 @@ def edit_group_settings(group_name, following, upvote_emails, receive_attachment
 
 def activate_group(group_name, user):
     res = {'status':False}
-    logging.error("GOT HERE - BEFORE IF STATEMENT, group name: " + group_name + " user " + user)
+    logging.error("GOT HERE - BEFORE IF STATEMENT, group name: " + str(group_name) + " user " + str(user))
     try:
         group = Group.objects.get(name=group_name)
         membergroup = MemberGroup.objects.get(group=group, member=user)
