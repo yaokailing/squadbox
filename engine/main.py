@@ -331,7 +331,7 @@ def edit_group_settings(group_name, following, upvote_emails, receive_attachment
 
 def activate_group(group_name, user):
     res = {'status':False}
-    logging.error("GOT HERE - BEFORE IF STATEMENT")
+    logging.error("GOT HERE - BEFORE IF STATEMENT, group name: " + group_name + " user " + user)
     try:
         group = Group.objects.get(name=group_name)
         membergroup = MemberGroup.objects.get(group=group, member=user)
@@ -342,6 +342,7 @@ def activate_group(group_name, user):
             res['status'] = True
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
+
 
             logging.error("Email sent to " + membergroup.member.email)
             mail = MailResponse(From = NO_REPLY, 
