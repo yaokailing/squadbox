@@ -333,7 +333,7 @@ def activate_group(group_name, user):
     res = {'status':False}
     logging.error("GOT HERE - BEFORE IF STATEMENT user " + str(user))
     try:
-        group = Group.objects.get(name=group_name)
+        group = Group.objects.get(name=group_name) ## Group object, user = user email (string)
         membergroup = MemberGroup.objects.get(group=group, member=user)
         if membergroup.admin:
             logging.error("GOT HERE - AFTER IF STATEMENT.")
@@ -343,14 +343,17 @@ def activate_group(group_name, user):
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
 
-
-            logging.error("Email sent to " + membergroup.member.email)
-            mail = MailResponse(From = NO_REPLY, 
-                                        To = membergroup.member.email, 
-                                        Subject  = "Your squad has been activated")
-            message = "Your squad owner has chosen to activate your group."
-            mail.Html = message
-            relay_mailer.deliver(mail, To = [membergroup.member.email])
+        member_list = MemberGroup.ojects.filter(group=group)
+        for m in member_list:
+            if m.moderator:
+                email = m.member.email
+                logging.error("Email sent to " + email)
+                mail = MailResponse(From = NO_REPLY, 
+                                            To = email, 
+                                            Subject  = "Your squad has been activated")
+                message = "Your squad owner has chosen to activate your group."
+                mail.Html = message
+                relay_mailer.deliver(mail, To = [email])
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
@@ -374,13 +377,17 @@ def deactivate_group(group_name, user):
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
         
-            logging.error("Email sent to : " + membergroup.member.email)
-            mail = MailResponse(From = NO_REPLY, 
-                            To = membergroup.member.email, 
-                            Subject  = "Your squad has been deactivated")
-            message = "Your squad owner has chosen to deactivate your group."
-            mail.Html = message
-            relay_mailer.deliver(mail, To = [membergroup.member.email])
+        member_list = MemberGroup.ojects.filter(group=group)
+        for m in member_list:
+            if m.moderator:
+                email = m.member.email
+                logging.error("Email sent to : " + email)
+                mail = MailResponse(From = NO_REPLY, 
+                                To = email, 
+                                Subject  = "Your squad has been deactivated")
+                message = "Your squad owner has chosen to deactivate your group."
+                mail.Html = message
+                relay_mailer.deliver(mail, To = [email])
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
