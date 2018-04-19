@@ -331,7 +331,7 @@ def edit_group_settings(group_name, following, upvote_emails, receive_attachment
 
 def activate_group(group_name, user):
     res = {'status':False}
-    logging.error("GOT HERE - BEFORE IF STATEMENT user " + str(user))
+    # logging.error("GOT HERE - BEFORE IF STATEMENT user " + str(user))
     try:
         group = Group.objects.get(name=group_name) ## Group object, user = user email (string)
         membergroup = MemberGroup.objects.get(group=group, member=user)
@@ -376,18 +376,19 @@ def deactivate_group(group_name, user):
             res['status'] = True
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
-        
-            member_list = MemberGroup.ojects.filter(group=group)
-            for m in member_list:
-                if m.moderator:
-                    email = m.member.email
-                    logging.error("Email sent to : " + email)
-                    mail = MailResponse(From = NO_REPLY, 
-                                    To = email, 
-                                    Subject  = "Your squad has been deactivated")
-                    message = "Your squad owner has chosen to deactivate your group."
-                    mail.Html = message
-                    relay_mailer.deliver(mail, To = [email])
+
+        logging.error()
+        member_list = MemberGroup.ojects.filter(group=group)
+        for m in member_list:
+            if m.moderator:
+                email = m.member.email
+                logging.error("Email sent to : " + email)
+                mail = MailResponse(From = NO_REPLY, 
+                                To = email, 
+                                Subject  = "Your squad has been deactivated")
+                message = "Your squad owner has chosen to deactivate your group."
+                mail.Html = message
+                relay_mailer.deliver(mail, To = [email])
     except Group.DoesNotExist:
         res['code'] = msg_code['GROUP_NOT_FOUND_ERROR']
     except MemberGroup.DoesNotExist:
