@@ -343,8 +343,9 @@ def activate_group(group_name, user):
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
 
-            logging.error("ACTIVATED")
+            logging.error("ACCOUNT ACTIVATED")
             member_list = MemberGroup.ojects.filter(group=group)
+            logging.error("MEMBER LIST: " + member_list)
             for m in member_list:
                 if m.moderator:
                     email = m.member.email
@@ -378,7 +379,7 @@ def deactivate_group(group_name, user):
         # else:
         #     res['code'] = msg_code['PRIVILEGE_ERROR']
 
-            logging.error("DEACTIVATED")
+            logging.error("ACCOUNT DEACTIVATED")
             member_list = MemberGroup.ojects.filter(group=group)
             for m in member_list:
                 if m.moderator:
